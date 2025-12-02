@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class lineDrawer : MonoBehaviour
@@ -21,6 +22,10 @@ public class lineDrawer : MonoBehaviour
             drawing = true;
             MakeLine();
         }
+        if (Input.GetMouseButtonUp(0) && drawing)
+        {
+            EndLine();
+        }
         if (drawing)
         {
             UpdateLine();
@@ -35,11 +40,24 @@ public class lineDrawer : MonoBehaviour
     {
         Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         line = Instantiate(linePrefab);
-        points.Add(mousePos);
+        line.GetComponent<Rigidbody2D>().simulated = false;
+        points.Add(line.transform.InverseTransformPoint(mousePos));
     }
     private void UpdateLine()
     {
         Vector2 newMousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        points.Add(newMousePos);
+        points.Add(line.transform.InverseTransformPoint(newMousePos));
+    }
+    private void EndLine()
+    {
+        drawing = false;
+        points.Add(line.transform.InverseTransformPoint(Camera.main.ScreenToWorldPoint(Input.mousePosition)));
+        line.GetComponent<LineRenderer>().positionCount = points.Count;
+        line.GetComponent<LineRenderer>().SetPositions(points.ToArray());
+        List<Vector2> vec = points.ConvertAll(v => (Vector2)v);
+        line.GetComponent<EdgeCollider2D>().SetPoints(vec);
+        line.GetComponent<Rigidbody2D>().simulated = true;
+        line = null;
+        points.Clear();
     }
 }
