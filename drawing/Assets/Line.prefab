@@ -154,7 +154,7 @@ Rigidbody2D:
   m_Mass: 15
   m_LinearDamping: 0.3
   m_AngularDamping: 0.3
-  m_GravityScale: 1
+  m_GravityScale: 2
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
