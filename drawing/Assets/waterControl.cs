@@ -21,5 +21,9 @@ public class waterControl : MonoBehaviour
             other.GetComponentInParent<cupControl>().inCup += 1;
             Destroy(gameObject);
         }
+        else if (other.tag == "kill")
+        {
+            Destroy(gameObject);
+        }
     }
 }

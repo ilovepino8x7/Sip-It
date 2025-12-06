@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using Unity.VisualScripting.Dependencies.NCalc;
 public class spawnWater : MonoBehaviour
 {
     public GameObject water;
@@ -7,6 +8,7 @@ public class spawnWater : MonoBehaviour
     public int amount = 50;
     public GameObject[] spawnPoints;
     private int counter;
+    public logicManager ls;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -16,10 +18,21 @@ public class spawnWater : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-       
+       if (ls.tutNum == 0)
+        {
+            GetComponent<Collider2D>().enabled = false;
+        }
+        else
+        {
+            GetComponent<Collider2D>().enabled = true;
+        }
     }
   void OnMouseDown()
   {
+    if (ls.tutNum == 1)
+        {
+            ls.tutNum++;
+        }
     SpawnWater();
   }
 
@@ -28,9 +41,9 @@ public class spawnWater : MonoBehaviour
     {
         for (int i = 0; i < amount; i++)
         {
-            Vector2 pos = new Vector2(spawnPoints[Random.Range(0,8)].transform.position.x, spawnPoints[Random.Range(0,8)].transform.position.y + (float)counter / (float)2);
+            Vector2 pos = new Vector2(spawnPoints[Random.Range(0,6)].transform.position.x, spawnPoints[Random.Range(0,6)].transform.position.y + (float)counter / (float)2);
             GameObject wat = Instantiate(water, pos, Quaternion.identity);
-            wat.GetComponent<Rigidbody2D>().linearVelocity = new Vector2(Random.Range(-15, 15), - 6);
+            wat.GetComponent<Rigidbody2D>().linearVelocity = new Vector2(0, - 10);
         }
     }
     public IEnumerator Wait(float seconds)
