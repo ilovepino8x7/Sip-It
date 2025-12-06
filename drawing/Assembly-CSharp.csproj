@@ -48,6 +48,10 @@
     <Analyzer Include="/Applications/Unity/Unity.app/Contents/Tools/Unity.SourceGenerators/Unity.UIToolkit.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets/waterControl.cs" />
+    <Compile Include="Assets/lineControl.cs" />
+    <Compile Include="Assets/spawnWater.cs" />
+    <Compile Include="Assets/cupControl.cs" />
     <Compile Include="Assets/lineDrawer.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -52,7 +52,7 @@ public class lineDrawer : MonoBehaviour
             return;
         }
         Collider2D hit = Physics2D.OverlapCircle(newMousePos, 0.2f);
-        if (hit != null && hit.gameObject != line)
+        if (hit != null && hit.gameObject != line && hit.tag != "kill")
         {
             EndLine();
             return;
