@@ -5,7 +5,7 @@ Sip It is a physics-based drawing game heavily inspired by _Happy Glass_.
 
 ## Link to Play online
 Works best on PC or Mac, but can be played on mobile if you don't mind some mis-scaled canvas elements
-hhh
+https://ilovepino56.itch.io/sip-it
 
 ## Controls
 Press and drag to draw lines.
