@@ -18,7 +18,7 @@ public class cupControl : MonoBehaviour
     void Update()
     {
         GameObject[] waters = GameObject.FindGameObjectsWithTag("what");
-        if (waters.Length < 10)
+        if (waters.Length < 10 && pipe.GetComponent<spawnWater>().spilled == true)
         {
             EndLevel();
         }

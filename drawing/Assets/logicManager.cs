@@ -25,76 +25,197 @@ public class logicManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        time.gameObject.SetActive(false);
-        Pipe.SetActive(false);
-        nextLevelScreen.SetActive(false);
-        Cup.SetActive(false);
-        bolt1.SetActive(false);
-        bolt2.SetActive(false);
-        bolt3.SetActive(false);
-        waterLevel.SetActive(false);
+        if (SceneManager.GetActiveScene().name != "Menu")
+        {
+            if (SceneManager.GetActiveScene().name == "Tutorial")
+            {
+                Pipe.SetActive(false);
+                Cup.SetActive(false);
+                bolt1.SetActive(false);
+                bolt2.SetActive(false);
+                bolt3.SetActive(false);
+                waterLevel.SetActive(false);
+            }
+            time.gameObject.SetActive(false);
+            nextLevelScreen.SetActive(false);
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (tutNum >= 2)
+        if (SceneManager.GetActiveScene().name != "Menu")
         {
-            
-            if (timer >= 15)
+            if (Input.GetKeyDown(KeyCode.R))
             {
-                Cup.GetComponent<cupControl>().EndLevel();
+                Fail();
             }
-            else
+            if (tutNum >= 2 && SceneManager.GetActiveScene().name == "Tutorial")
             {
-                timer += Time.deltaTime;
+
+                if (timer >= 25)
+                {
+                    Cup.GetComponent<cupControl>().EndLevel();
+                }
+                else
+                {
+                    timer += Time.deltaTime;
+                }
+                if (timer >= 24)
+                {
+                    time.text = "0";
+                }
+                else if (timer >= 23)
+                {
+                    time.text = "1";
+                }
+                else if (timer >= 22)
+                {
+                    time.text = "2";
+                }
+                else if (timer >= 21)
+                {
+                    time.text = "3";
+                }
+                else if (timer >= 20)
+                {
+                    time.text = "4";
+                }
+                else if (timer >= 19)
+                {
+                    time.gameObject.SetActive(true);
+                    time.text = "5";
+                }
             }
-            if (timer >= 14)
+            else if (SceneManager.GetActiveScene().name == "Three")
             {
-                time.text = "0";
+                if (timer >= 32)
+                {
+                    Cup.GetComponent<cupControl>().EndLevel();
+                }
+                else
+                {
+                    timer += Time.deltaTime;
+                }
+                if (timer >= 31)
+                {
+                    time.text = "0";
+                }
+                else if (timer >= 30)
+                {
+                    time.text = "1";
+                }
+                else if (timer >= 29)
+                {
+                    time.text = "2";
+                }
+                else if (timer >= 28)
+                {
+                    time.text = "3";
+                }
+                else if (timer >= 27)
+                {
+                    time.text = "4";
+                }
+                else if (timer >= 26)
+                {
+                    time.gameObject.SetActive(true);
+                    time.text = "5";
+                }
             }
-            else if (timer >= 13)
+            else if (SceneManager.GetActiveScene().name == "One")
             {
-                time.text = "1";
+                if (timer >= 25)
+                {
+                    Cup.GetComponent<cupControl>().EndLevel();
+                }
+                else
+                {
+                    timer += Time.deltaTime;
+                }
+                if (timer >= 24)
+                {
+                    time.text = "0";
+                }
+                else if (timer >= 23)
+                {
+                    time.text = "1";
+                }
+                else if (timer >= 22)
+                {
+                    time.text = "2";
+                }
+                else if (timer >= 21)
+                {
+                    time.text = "3";
+                }
+                else if (timer >= 20)
+                {
+                    time.text = "4";
+                }
+                else if (timer >= 19)
+                {
+                    time.gameObject.SetActive(true);
+                    time.text = "5";
+                }
             }
-            else if (timer >= 12)
+            else if (SceneManager.GetActiveScene().name == "Two")
             {
-                time.text = "2";
+                if (timer >= 20)
+                {
+                    Cup.GetComponent<cupControl>().EndLevel();
+                }
+                else
+                {
+                    timer += Time.deltaTime;
+                }
+                if (timer >= 19)
+                {
+                    time.text = "0";
+                }
+                else if (timer >= 18)
+                {
+                    time.text = "1";
+                }
+                else if (timer >= 17)
+                {
+                    time.text = "2";
+                }
+                else if (timer >= 16)
+                {
+                    time.text = "3";
+                }
+                else if (timer >= 15)
+                {
+                    time.text = "4";
+                }
+                else if (timer >= 14)
+                {
+                    time.gameObject.SetActive(true);
+                    time.text = "5";
+                }
             }
-            else if (timer >= 11)
+            if (SceneManager.GetActiveScene().name == "Tutorial")
             {
-                time.text = "3";
+                UpdateTutorial();
             }
-            else if (timer >= 10)
+            if (Input.GetMouseButtonDown(0) && !drawing)
             {
-                time.text = "4";
+                drawing = true;
+                MakeLine();
             }
-            else if (timer >= 9)
+            if (Input.GetMouseButtonUp(0) && drawing)
             {
-                time.gameObject.SetActive(true);
-                time.text = "5";
+                EndLine();
             }
-        }
-        if (SceneManager.GetActiveScene().name == "Tutorial")
-        {
-            UpdateTutorial();
-        }
-        if (Input.GetMouseButtonDown(0) && !drawing)
-        {
-            drawing = true;
-            MakeLine();
-        }
-        if (Input.GetMouseButtonUp(0) && drawing)
-        {
-            EndLine();
-        }
-        if (drawing)
-        {
-            UpdateLine();
-            if (points.Count >= 2)
+            if (drawing)
             {
-                line.GetComponent<LineRenderer>().positionCount = points.Count;
-                line.GetComponent<LineRenderer>().SetPositions(points.ToArray());
+                UpdateLine();
+                if (points.Count >= 2)
+                {
+                    line.GetComponent<LineRenderer>().positionCount = points.Count;
+                    line.GetComponent<LineRenderer>().SetPositions(points.ToArray());
+                }
             }
         }
     }
@@ -133,7 +254,7 @@ public class logicManager : MonoBehaviour
             points.Clear();
             return;
         }
-        if (tutNum == 0)
+        if (tutNum == 0 && SceneManager.GetActiveScene().name == "Tutorial")
         {
             tutNum++;
             Destroy(line);
@@ -190,7 +311,7 @@ public class logicManager : MonoBehaviour
         }
         else if (tutNum == 2)
         {
-            tut.text = "Draw a line from under the pipe to the cup for the water to flow over";
+            tut.text = "Draw a line from under the pipe to the cup for the water to flow over - water flows on lines and lines can balance on grey blocks.";
         }
     }
     public void LoadNextLevel()
@@ -198,6 +319,22 @@ public class logicManager : MonoBehaviour
         if (SceneManager.GetActiveScene().name == "Tutorial")
         {
             SceneManager.LoadScene("One");
+        }
+        else if (SceneManager.GetActiveScene().name == "One")
+        {
+            SceneManager.LoadScene("Two");
+        }
+        else if (SceneManager.GetActiveScene().name == "Two")
+        {
+            SceneManager.LoadScene("Three");
+        }
+        else if (SceneManager.GetActiveScene().name == "Three")
+        {
+            SceneManager.LoadScene("Menu");
+        }
+        else
+        {
+            SceneManager.LoadScene("Tutorial");
         }
     }
     public void Success()

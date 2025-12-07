@@ -1,24 +1,28 @@
 using UnityEngine;
 using System.Collections;
 using Unity.VisualScripting.Dependencies.NCalc;
+using UnityEngine.SceneManagement;
 public class spawnWater : MonoBehaviour
 {
     public GameObject water;
     [HideInInspector]
     public int amount = 50;
+    [HideInInspector]
+    public bool spilled = false;
+    private int times = 0;
     public GameObject[] spawnPoints;
     private int counter;
     public logicManager ls;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        times = 0;
     }
 
     // Update is called once per frame
     void Update()
     {
-       if (ls.tutNum == 0)
+       if (ls.tutNum == 0 && SceneManager.GetActiveScene().name == "Tutorial")
         {
             GetComponent<Collider2D>().enabled = false;
         }
@@ -33,7 +37,23 @@ public class spawnWater : MonoBehaviour
         {
             ls.tutNum++;
         }
-    SpawnWater();
+    if (!spilled && SceneManager.GetActiveScene().name == "Tutorial")
+        {
+            if (times >= 2)
+            {
+                spilled = true;
+            }
+            else
+            {
+                times++;
+            }
+            SpawnWater();
+        }
+        else if (!spilled)
+        {
+            spilled = true;
+            SpawnWater();
+        }
   }
 
 

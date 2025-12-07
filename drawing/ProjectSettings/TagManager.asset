@@ -8,6 +8,7 @@ TagManager:
   - lino
   - kill
   - cup
+  - what
   layers:
   - Default
   - TransparentFX
